@@ -120,6 +120,10 @@
     }
 
     GestureLock.prototype.createCircle = function() { // 创建解锁点的坐标，根据canvas的大小来平均分配半径
+        var canvas = document.getElementById('canvas');
+        canvas.height = canvas.clientHeight;
+        canvas.width = canvas.clientWidth;
+
         var n = this.chooseType;
         var count = 0;
         this.r = this.ctx.canvas.width / (2 + 4 * n); // 公式计算
@@ -156,7 +160,6 @@
 
     GestureLock.prototype.update = function(po) { // 核心变换方法在touchmove时候调用
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
         for (var i = 0; i < this.arr.length; i++) { // 每帧先把面板画出来
             this.drawCle(this.arr[i].x, this.arr[i].y);
         }
@@ -250,10 +253,10 @@
         var str = 
             '<h4 id="title" class="title">绘制解锁图案</h4>' +
             '<a id="updatePassword" style="position: absolute;right: 5px;top: 5px;color:#fff;font-size: 10px;display:none;">重置密码</a>' +
-            '<canvas id="canvas" width="300" height="300" style="background-color: #00000099;display: inline-block;margin-top: 15px;"></canvas>'
+            '<canvas id="canvas" style="width: 75vw; height:75vw; background-color: #00000099;display: inline-block;margin: 0;padding=0;"></canvas>'
         wrap.setAttribute('class', 'animated slideInUp');
         wrap.setAttribute('id', 'wrapper');
-        wrap.setAttribute('style', 'background-color: #6050EE; position: absolute; width: 100%; min-height: 100%; left: 0; top: 0;');
+        wrap.setAttribute('style', 'background-color: #6050EE; position: absolute; width: 100vw; min-height: 100vh; left: 0; top: 0;');
         wrap.innerHTML = str;
         document.body.appendChild(wrap);
     }
